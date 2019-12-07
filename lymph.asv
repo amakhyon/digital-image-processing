@@ -1,0 +1,34 @@
+rgbImage = imread('1.bmp');
+hsv = rgb2hsv(rgbImage);
+h = hsv(:, :, 1); % Hue image.
+s = hsv(:, :, 2); % Saturation image.
+v = hsv(:, :, 3); % Value (intensity) image.
+
+%1
+subplot(2,4,1),imshow(h),title('hue');
+subplot(2,4,2), imshow(s), title('saturation');
+subplot(2,4,3), imshow(v), title('value');
+
+%%selecting areas where saturation is above 0.3
+binaryImage = s >= 0.3;
+
+%2
+subplot(2,4,5), imshow(binaryImage), title('binary image, 
+
+%%getting rid of small circles
+BW2 = bwareaopen(binaryImage,700);
+
+%3
+
+%%applying dilation to fix the cell from holes
+se1 = strel('disk',3 );
+dilated = imdilate(BW2, se1);
+
+
+%4
+
+%%applying image mask
+maskedRgbImage = bsxfun(@times, rgbImage, cast(dilated, 'like', rgbImage));
+%imshow(maskedRgbImage);
+
+%5

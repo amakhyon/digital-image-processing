@@ -1,0 +1,33 @@
+rgbImage = imread('images/3.bmp');
+h = hsv(:, :, 1);
+%hsv = rgb2hsv(rgbImage);
+%h = hsv(:, :, 1); % Hue image.
+%s = hsv(:, :, 2); % Saturation image.
+%v = hsv(:, :, 3); % Value (intensity) image.
+
+%1
+%subplot(2,4,1),imshow(h),title('hue');
+%subplot(2,4,2), imshow(s), title('saturation');
+%subplot(2,4,3), imshow(v), title('value');
+%subplot(2,4,4), imshow(rgbImage), title('original image');
+
+%2 
+%r = rgbImage(:,:,1); % red channel
+%g = rgbImage(:,:,2); % Green channel
+%b = rgbImage(:,:,3); % blue channel
+
+
+%subplot(2,4,5),imshow(r),title('red');
+%subplot(2,4,6),imshow(g),title('green');
+%subplot(2,4,7),imshow(b),title('bluee');
+%impixelinfo;
+
+%%get only eosi cell by hue value
+eosiCell = h > 0.77;
+
+%%applying dilation to fix the cell from holes
+se1 = strel('disk',7 );
+dilated = imdilate(eosiCell, se1);
+
+subplot(2,2,1), imshow(dilated), title("dilated");
+subplot(2,2,2), imshow(

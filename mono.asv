@@ -1,0 +1,9 @@
+rgbImage = imread('images/4.bmp');
+
+
+greenChannel = rgbImage(:,:,2); % Green channel
+
+imshow(greenChannel);
+impixelinfo;
+binaryImage = greenChannel <= 100;
+imshow(binaryImage);
